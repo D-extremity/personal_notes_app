@@ -3,8 +3,11 @@ package com.example.personal_notes_app.Services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +30,29 @@ public class UserServices {
     }
 
 
+    
     public Users getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = auth.getName();
         return userRepository.findByUsername(currentUserName);
         
-
+        
     }
+    
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JWTService jwtService;
+
+
+    public String loginUser(Users user){
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(user.getUsername());
+        }
+        throw new UsernameNotFoundException("No user found");
+    }
 
     public Boolean addArticle(Articles article) {
 
