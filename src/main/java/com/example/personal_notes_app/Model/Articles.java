@@ -13,6 +13,6 @@ public class Articles {
     private String articleTitle;
     private String article;
     @Id
-    private int articleID;
+    private long articleID;
 
 }

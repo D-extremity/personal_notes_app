@@ -25,6 +25,7 @@ public class UserServices {
     private PasswordEncoder passwordEncoder;
 
     public Users createUser(Users user) {
+        user.setId(userRepository.count()+1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
