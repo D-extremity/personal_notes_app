@@ -3,8 +3,6 @@ package com.example.personal_notes_app.Services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +21,7 @@ public class ArticleService {
 
     @Transactional
     public Articles newArticle(Articles article){
+        article.setArticleID(articleRepository.count()+1);
         userServices.addArticle(article);
         return articleRepository.save(article);
 

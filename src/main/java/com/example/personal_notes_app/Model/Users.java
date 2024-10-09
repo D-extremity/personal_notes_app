@@ -16,7 +16,7 @@ public class Users {
     private String username;
     private String password;
     @Id
-    private int id;
+    private long id;
     @DBRef
     List<Articles> articles;
     
