@@ -1,7 +1,8 @@
 package com.example.personal_notes_app.PrincipalClsses;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +22,10 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         
         try {
-            return Collections.singleton(new SimpleGrantedAuthority("USER"));
+            Set<SimpleGrantedAuthority> authorities = user.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_"+role)).collect(Collectors.toSet());
+            return authorities;
+            // return Collections.singleton(new SimpleGrantedAuthority("USER"));
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
         }

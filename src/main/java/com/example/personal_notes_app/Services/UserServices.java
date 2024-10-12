@@ -27,6 +27,7 @@ public class UserServices {
     public Users createUser(Users user) {
         user.setId(userRepository.count()+1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(user.getRoles());
         return userRepository.save(user);
     }
 

@@ -32,6 +32,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/user/register","/user/login").permitAll()
+                        .requestMatchers("/admin/get-all-users").hasAnyRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(org.springframework.security.config.Customizer.withDefaults())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

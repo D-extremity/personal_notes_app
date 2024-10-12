@@ -11,8 +11,7 @@ import com.example.personal_notes_app.PrincipalClsses.UserPrincipal;
 import com.example.personal_notes_app.Repository.UserRepository;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService{
-    
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepo;
@@ -20,11 +19,12 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Users user=userRepo.findByUsername(username);
-        if(user!=null){
+        Users user = userRepo.findByUsername(username);
+        if (user != null) {
+          
             return new UserPrincipal(user);
         }
         throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
-    
+
 }
