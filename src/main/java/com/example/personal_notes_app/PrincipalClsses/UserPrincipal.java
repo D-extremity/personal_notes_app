@@ -27,7 +27,7 @@ public class UserPrincipal implements UserDetails {
             return authorities;
             // return Collections.singleton(new SimpleGrantedAuthority("USER"));
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+            throw new UnsupportedOperationException("Unimplemented method 'getAuthorities' "+ e);
         }
     }
 

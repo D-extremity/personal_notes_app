@@ -22,12 +22,17 @@ public class UserController {
     @PostMapping("/register")
     public Users newUser(@RequestBody Users entity) {
         return userServices.createUser(entity);
-
+        // ReponseBody example
+        // {
+        //     "username":"Lonu",
+        //     "password":"l@123",
+        //     "articles":[],
+        //     "roles":["USER"]
+        // }
     }
 
     @PostMapping("/login")
     public String greet(@RequestBody Users user) {
-
         return userServices.loginUser(user);
     }
 
